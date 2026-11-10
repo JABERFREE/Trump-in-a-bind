@@ -8,31 +8,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     
-    <!-- Importmap معتمد ومستقر لـ Three.js -->
+    <!-- Three.js Importmap -->
     <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
-          "@instantdb/core": "https://esm.sh/@instantdb/core@0.22.155"
-        }
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+        "@instantdb/core": "https://esm.sh/@instantdb/core@0.22.155"
       }
-    </script>    
+    }
+    </script>  
     
     <script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
     <script src="https://gx.games/sdk/gx-games-sdk.js"></script>
     
     <script>
-      // تهيئة CrazyGames SDK مع حماية الخطأ
-      window.ezSDK = window.ezSDK || null;
-      try {
+    window.ezSDK = window.ezSDK || null;
+    try {
         if (window.CrazyGames && window.CrazyGames.SDK) {
-            window.crazyGamesSDK = window.CrazyGames.SDK.getInstance();
-            window.crazyGamesSDK.gameLoadingStart();
+            window.CrazyGamesSDK = window.CrazyGames.SDK.getInstance();
+            window.CrazyGamesSDK.gameLoadingStart();
         }
-      } catch(e) {
+    } catch (e) {
         console.warn("CrazyGames SDK initialization failed:", e);
-      }
+    }
     </script>
 
     <style>
@@ -77,23 +76,21 @@
 
     <div id="game-container"></div>
 
-    <!-- كود اللعبة الرئيسي -->
-    <script type="module" src="main.js"></script>
+    <script type="module" src="./main.js"></script>
 
     <script>
-      // إلغاء شاشة التحميل بعد التأكد من جاهزية اللعبة
-      window.addEventListener('load', () => {
-          setTimeout(() => {
-              const loadingOverlay = document.getElementById('loading-overlay');
-              if (loadingOverlay) {
-                  loadingOverlay.style.opacity = '0';
-                  setTimeout(() => loadingOverlay.remove(), 500);
-              }
-              if (window.crazyGamesSDK) {
-                  try { window.crazyGamesSDK.gameLoadingStop(); } catch(e) {}
-              }
-          }, 800);
-      });
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => loadingOverlay.remove(), 500);
+            }
+            if (window.crazyGamesSDK) {
+                try { window.crazyGamesSDK.gameLoadingStop(); } catch(e) {}
+            }
+        }, 800);
+    });
     </script>
   </body>
 </html>
