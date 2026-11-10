@@ -1,0 +1,17 @@
+{
+  "name": "Trump in a Maze",
+  "revisionLabel": "Update trap lethality and refine barrel jump mechanics",
+  "description": "Create a 2D wall-based maze platformer story featuring Captain Trump and five named pirates (Marco Rubio, Pete Hegseth, JD Vance, Steve Witkopf, and Jared Kushner). The core gameplay is a single continuous run: Captain Trump starts the maze, navigates traps, and jumps over obstacles to reach the end (a ship/dock). When Captain Trump reaches the end, control instantly switches to the next pirate, using the same map mechanics to reach the same ship near Captain Trump. This continues pirate-by-pirate until the final pirate reaches the docked ship.",
+  "mode": "Universal",
+  "exportDate": "2026-07-25T12:22:05.851Z",
+  "rosebudBuiltInSplash": {
+    "present": true,
+    "version": 1
+  },
+  "assetCount": 95,
+  "assetTypes": [
+    "audio",
+    "image",
+    "model"
+  ]
+}
