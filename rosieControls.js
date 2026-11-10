@@ -24,7 +24,7 @@ class PlayerController {
     this.setupInput();
 
     // Initialize mobile controls (handles its own detection and activation)
-    this.mobileControls = new MobileControls(this);
+    
   }
 
   setupInput() {
@@ -137,7 +137,7 @@ class PlayerController {
 
   destroy() {
     // Clean up mobile controls
-    this.mobileControls.destroy();
+   
   }
 }
 
