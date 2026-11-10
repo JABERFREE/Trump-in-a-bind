@@ -1,4 +1,3 @@
-
 import * as THREE from 'three';
 import { MobileControls } from './rosieMobileControls.js';
 
@@ -132,9 +131,6 @@ class PlayerController {
       // Works with standard 3D mesh orientation (front facing -Z)
       this.player.rotation.y = angle;
     }
-     // If not moving in third-person, the player keeps their last rotation.
-     // In first-person mode, the player's rotation is handled entirely by
-     // the FirstPersonCameraController synchronizing with the mouse look.
   }
 
   destroy() {
@@ -297,7 +293,6 @@ class FirstPersonCameraController {
     if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
       let touchStart = null;
 
-      // Helper function to check if touch is over mobile UI elements
       const isTouchOverMobileUI = (touch) => {
         const element = document.elementFromPoint(touch.clientX, touch.clientY);
         return element && (
@@ -311,8 +306,6 @@ class FirstPersonCameraController {
 
       this.domElement.addEventListener('touchstart', (e) => {
         if (!this.enabled || e.touches.length !== 1) return;
-
-        // Don't handle touch if it's over mobile UI
         if (isTouchOverMobileUI(e.touches[0])) return;
 
         touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
@@ -321,8 +314,6 @@ class FirstPersonCameraController {
 
       this.domElement.addEventListener('touchmove', (e) => {
         if (!this.enabled || !touchStart || e.touches.length !== 1) return;
-
-        // Don't handle touch if it started over mobile UI
         if (isTouchOverMobileUI(e.touches[0])) return;
 
         const touch = e.touches[0];
@@ -346,18 +337,12 @@ class FirstPersonCameraController {
 
   enable() {
     this.enabled = true;
-
-    // Note: rotationY will be set by setCameraMode before this is called
     this.rotationX = 0;
-
-    // Hide player when in first-person mode
     this.hidePlayer();
   }
 
   disable() {
     this.enabled = false;
-
-    // Show player when exiting first-person mode
     this.showPlayer();
 
     if (document.pointerLockElement === this.domElement) {
@@ -366,7 +351,6 @@ class FirstPersonCameraController {
   }
 
   hidePlayer() {
-    // Store current player model visibility state
     this.originalVisibility = [];
     this.player.traverse(child => {
       if (child.isMesh) {
@@ -380,7 +364,6 @@ class FirstPersonCameraController {
   }
 
   showPlayer() {
-    // Restore player model visibility
     if (this.originalVisibility) {
       this.originalVisibility.forEach(item => {
         item.object.visible = item.visible;
@@ -392,15 +375,12 @@ class FirstPersonCameraController {
   update() {
     if (!this.enabled) return 0;
 
-    // Set player rotation to match camera's horizontal rotation
     this.player.rotation.y = this.rotationY;
 
-    // Position camera at player eye height
     this.camera.position.x = this.player.position.x;
     this.camera.position.y = this.player.position.y + this.eyeHeight;
     this.camera.position.z = this.player.position.z;
 
-    // Set camera rotation
     this.camera.rotation.order = 'YXZ';
     this.camera.rotation.x = this.rotationX;
     this.camera.rotation.y = this.rotationY;
