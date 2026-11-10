@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { PlayerController, ThirdPersonCameraController } from './rosie/controls/rosieControls.js';
+import { PlayerController, ThirdPersonCameraController } from './rosieMobileControls.js';
 import { Maze } from './maze.js';
 import { CharacterManager, PIRATES } from './characters.js';
 import { MultiplayerManager } from './multiplayer.js';
