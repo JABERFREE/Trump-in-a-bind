@@ -1,5 +1,4 @@
-import * as THREE from 'three';
-import { MobileControls } from './rosieMobileControls.js';
+import * as THREE from 'three'
 
 /**
  * PlayerController - Handles player movement and physics
