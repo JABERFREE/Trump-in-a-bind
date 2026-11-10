@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>The Pirate Maze</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Importmap معتمد ومستقر لـ Three.js -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+          "@instantdb/core": "https://esm.sh/@instantdb/core@0.22.155"
+        }
+      }
+    </script>    
+    
+    <script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
+    <script src="https://gx.games/sdk/gx-games-sdk.js"></script>
+    
+    <script>
+      // تهيئة CrazyGames SDK مع حماية الخطأ
+      window.ezSDK = window.ezSDK || null;
+      try {
+        if (window.CrazyGames && window.CrazyGames.SDK) {
+            window.crazyGamesSDK = window.CrazyGames.SDK.getInstance();
+            window.crazyGamesSDK.gameLoadingStart();
+        }
+      } catch(e) {
+        console.warn("CrazyGames SDK initialization failed:", e);
+      }
+    </script>
+
+    <style>
+      html, body, #game-container { width: 100%; height: 100%; margin: 0; padding: 0; background: #000; overflow: hidden; }
+      body { touch-action: none; font-family: 'Inter', system-ui, sans-serif; }
+      canvas { display: block; }
+      #game-ui { pointer-events: none; user-select: none; }
+      #game-ui button { pointer-events: auto; }
+      
+      .pirate-portrait-container {
+          width: 80px; height: 100px; overflow: hidden; border: 2px solid white; border-radius: 5px; background: #333;
+      }
+      .pirate-portrait-container img {
+          width: 100%; height: 100%; object-fit: cover;
+      }
+      
+      #loading-overlay {
+          position: fixed; inset: 0; background: #1a1a1a; 
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          z-index: 3000; color: #ffd700; font-family: 'Orbitron', sans-serif;
+          transition: opacity 0.5s ease;
+      }
+      #loading-bar-container {
+          width: 160px; height: 6px; background: #333; border: 1px solid #ffd700; 
+          border-radius: 3px; margin-top: 15px; overflow: hidden;
+      }
+      #loading-bar {
+          width: 0%; height: 100%; background: #ffd700; transition: width 0.1s ease-out;
+      }
+      #loading-text { margin-top: 8px; font-size: 0.75em; }
+    </style>
+  </head>
+  
+  <body>
+    <div id="loading-overlay">
+        <h1 style="margin: 0; font-size: 1.2em;">THE PIRATE MAZE</h1>
+        <div id="loading-bar-container">
+            <div id="loading-bar"></div>
+        </div>
+        <div id="loading-text">Loading Assets... 0%</div>
+    </div>
+
+    <div id="game-container"></div>
+
+    <!-- كود اللعبة الرئيسي -->
+    <script type="module" src="main.js"></script>
+
+    <script>
+      // إلغاء شاشة التحميل بعد التأكد من جاهزية اللعبة
+      window.addEventListener('load', () => {
+          setTimeout(() => {
+              const loadingOverlay = document.getElementById('loading-overlay');
+              if (loadingOverlay) {
+                  loadingOverlay.style.opacity = '0';
+                  setTimeout(() => loadingOverlay.remove(), 500);
+              }
+              if (window.crazyGamesSDK) {
+                  try { window.crazyGamesSDK.gameLoadingStop(); } catch(e) {}
+              }
+          }, 800);
+      });
+    </script>
+  </body>
+</html>
