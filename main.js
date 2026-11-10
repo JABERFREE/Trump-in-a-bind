@@ -2002,8 +2002,7 @@ overlay.innerHTML = `
                 this.restartGame();
             };
         }
-     // <-- إغلاق دالة showVictory بشكل صحيح
-
+     
     animate(time) 
         requestAnimationFrame((t) => this.animate(t));
         
